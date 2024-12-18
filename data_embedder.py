@@ -101,12 +101,14 @@ class DataEmbedder:
                     collection.add(
                         documents=[document],
                         metadatas=[{
-                            "language": language,
+                            #"language": language,
+                            "language": language.upper(),
                             "topic": row["topic"],
                             "description": row["topic_description"],
                             "difficulty_level": row["difficulty_level"]
                         }],
-                        ids=[doc_id]
+                        #ids=[doc_id]
+                        ids=[f"{language.upper()}_{idx}"]  # ID도 일관되게
                     )
                 
                 print(f"{language} 데이터 처리 완료: {len(df)} 행")
@@ -123,7 +125,7 @@ def prepare_data():
     # 지원하는 프로그래밍 언어와 파일 경로
     file_paths = {
         lang: f"{data_dir}/Mission_Dataset_{lang}.csv"
-        for lang in ["Java", "Python", "JavaScript", "React", "Spring", "Docker"]
+        for lang in ["JAVA", "PYTHON", "JAVASCRIPT", "REACT", "SPRING", "DOCKER"]
     }
     
     # 데이터 임베더 초기화 및 실행
